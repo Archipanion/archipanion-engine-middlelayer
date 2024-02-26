@@ -1,0 +1,8 @@
+{
+  "apiEndpoint": {
+    "port": 8085,
+    "retrieval": true,
+    "index": true,
+    "export": true
+  }
+}

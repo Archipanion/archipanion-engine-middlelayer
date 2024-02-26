@@ -1,0 +1,51 @@
+
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "$version_kotlin"
+    id "org.jetbrains.kotlin.plugin.serialization" version "$version_kotlin"
+}
+
+
+kotlin {
+    jvmToolchain(21)
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+}
+
+
+
+dependencies {
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+
+    /* Kotlinx Extensions */
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: version_kotlinx_coroutines
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-serialization-json-jvm', version: version_kotlinx_json_jvm
+
+    /* Logging */
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: version_slf4j
+    implementation group: 'io.github.oshai', name: 'kotlin-logging-jvm', version: version_kotlinlogging
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: version_log4j2
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: version_log4j2
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j2-impl', version: version_log4j2
+
+
+    /* vitrivr engine. */
+    //implementation group: 'org.vitrivr', name: 'vitrivr-engine-base', version: version_vitrivr
+    implementation group: 'org.vitrivr', name: 'vitrivr-engine-core', version: version_vitrivr
+    implementation group: 'org.vitrivr', name: 'vitrivr-engine-index', version: version_vitrivr
+    implementation group: 'org.vitrivr', name: 'vitrivr-engine-plugin-features', version: version_vitrivr
+    implementation group: 'org.vitrivr', name: 'vitrivr-engine-query', version: version_vitrivr
+    implementation group: 'org.vitrivr', name: 'vitrivr-engine-plugin-cottontaildb', version: version_vitrivr
+    implementation group: 'org.vitrivr', name: 'vitrivr-engine-plugin-m3d', version: version_vitrivr
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+group = "org.archipanion"
+version = "1.0-SNAPSHOT"
