@@ -11,9 +11,9 @@ import java.io.IOException
 import java.util.regex.Pattern
 
 /**
- * Base class for the vitrivr engine CLI.
+ * Base class for the middlelayer cli
  *
- * @author Ralph Gasser
+ * @author Raphael Waltenspül
  * @version 1.0.0
  */
 class Cli(private  val config: RootConfig) {

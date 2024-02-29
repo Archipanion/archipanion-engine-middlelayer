@@ -1,0 +1,24 @@
+{
+  "inputs": {
+    "mytext1": {"type": "TEXT", "data": "an orange starfish on the seafloor"},
+    "mytext2": {"type": "TEXT", "data": "a seasnake on the seafloor"}
+  },
+  "operations": {
+    "clip1" : {"type": "RETRIEVER", "field": "clip", "input": "mytext1"},
+    "lookup1" : {"type": "TRANSFORMER", "transformerName": "FieldLookup", "input": "clip1", "properties": {"field": "time", "keys": "start, end"}},
+    "relations1" : {"type": "TRANSFORMER", "transformerName": "RelationExpander", "input": "lookup1", "properties": {"outgoing": "partOf"}},
+    "clip2" : {"type": "RETRIEVER", "field": "clip", "input": "mytext2"},
+    "lookup2" : {"type": "TRANSFORMER", "transformerName": "FieldLookup", "input": "clip2", "properties": {"field": "time", "keys": "start, end"}},
+    "relations2" : {"type": "TRANSFORMER", "transformerName": "RelationExpander", "input": "lookup2", "properties": {"outgoing": "partOf"}},
+    "temporal" : {"type": "AGGREGATOR", "aggregatorName": "TemporalSequenceAggregator", "inputs": ["relations1", "relations2"]},
+    "score" : {"type": "TRANSFORMER", "transformerName": "ScoreAggregator",  "input": "temporal"},
+    "lookup3" : {"type": "TRANSFORMER", "transformerName": "FieldLookup", "input": "score", "properties": {"field": "file", "keys": "path"}}
+  },
+  "context": {
+    "global": {
+      "limit": "10"
+    },
+    "local" : {}
+  },
+  "output": "lookup3"
+}

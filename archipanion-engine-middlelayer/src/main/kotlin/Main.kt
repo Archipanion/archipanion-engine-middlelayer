@@ -15,7 +15,9 @@ import io.javalin.plugin.bundled.CorsPluginConfig
 import org.archipanion.Controller.Api.Cli.Cli
 import org.archipanion.Controller.Api.Rest.Routes
 import org.archipanion.Model.Config.ApiConfig
+import org.archipanion.Model.Config.Query.Queryset
 import org.archipanion.Util.Serialization.KotlinxJsonMapper
+import org.vitrivr.engine.query.model.api.InformationNeedDescription
 import org.vitrivr.engine.server.api.rest.model.ErrorStatus
 import org.vitrivr.engine.server.api.rest.model.ErrorStatusException
 
@@ -30,6 +32,13 @@ fun main(args: Array<String>) {
 
     val config = ConfigReader().read<RootConfig>()
     logger.trace { "Config loaded: ${config.toString()}" }
+    val queryConfig = ConfigReader(config!!.queryConfigPath).read<Queryset>()
+    logger.trace { "QueryConfig loaded: ${queryConfig.toString()}" }
+    for (query in queryConfig!!.queries) {
+        query.informationNeedDescription = ConfigReader(query.path).read<InformationNeedDescription>()
+        logger.trace { "Query loaded: ${query.toString()}" }
+    }
+
     val javalin = javelinSetup(config!!.apiEndpoint)
 
 

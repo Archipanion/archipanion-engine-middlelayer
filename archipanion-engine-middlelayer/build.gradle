@@ -52,6 +52,12 @@ dependencies {
     implementation group: 'io.javalin.community.openapi', name: 'javalin-openapi-plugin', version: version_javalin
     implementation group: 'io.javalin.community.openapi', name: 'javalin-swagger-plugin', version: version_javalin
     implementation group: 'io.javalin.community.ssl', name: 'ssl-plugin', version: version_javalin
+
+
+    /** Engine **/
+
+    implementation group: 'org.vitrivr', name: 'vitrivr-engine-query', version: version_vitrivr
+
 }
 
 tasks.test {
