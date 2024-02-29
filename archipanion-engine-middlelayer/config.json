@@ -1,8 +1,25 @@
 {
+  "schemas": [
+    {
+      "schema": "ptt"
+    },
+    {
+      "schema": "filmwochenschau"
+    }
+  ],
   "apiEndpoint": {
-    "port": 8085,
-    "retrieval": true,
-    "index": true,
-    "export": true
-  }
+    "port": 8085
+  },
+  "engineEndpoints": [
+    {
+      "ip": "localhost",
+      "schema": "ptt",
+      "port": 8080
+    },
+    {
+      "ip": "localhost",
+      "schema": "filmwochenschau",
+      "port": 8080
+    }
+  ]
 }

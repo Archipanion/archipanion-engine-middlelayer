@@ -1,7 +1,6 @@
 package org.archipanion.Model.Config
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
 
 /**
  * Configuration regarding the RESTful API.
@@ -10,8 +9,12 @@ import kotlinx.serialization.Serializer
  * @version 1.0.0
  */
 @Serializable
-data class ApiConfig (
+data class ServiceConfig (
 
+    /** Ip forConfig **/
+    val ip: String = "localhost",
+    /** Endpoint for specific schema. Empty for default **/
+    val schema: String = "",
     /** Port used by the RESTful API. */
     val port: Int = 7070,
 )
