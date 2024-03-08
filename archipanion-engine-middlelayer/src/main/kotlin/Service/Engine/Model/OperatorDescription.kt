@@ -1,4 +1,4 @@
-package org.vitrivr.engine.query.model.api.operator
+package org.archipanion.Service.Engine.Model
 
 import kotlinx.serialization.Serializable
 

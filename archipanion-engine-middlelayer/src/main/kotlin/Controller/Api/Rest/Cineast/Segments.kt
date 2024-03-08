@@ -2,7 +2,6 @@ package org.archipanion.Controller.Api.Rest.Cineast
 
 
 import io.javalin.http.Context
-import io.javalin.http.TemporaryRedirectResponse
 import io.javalin.openapi.*
 import org.archipanion.Model.Config.Query.DynamicDescription.DynamicInformationNeedDescription
 import org.archipanion.Model.Config.Query.DynamicDescription.DynamicOperations
@@ -10,11 +9,10 @@ import org.archipanion.Model.Config.Query.DynamicDescription.OperationType
 import org.archipanion.Model.Segment.SegmentQueryResult
 import org.archipanion.Util.Config.ConfigReader
 import org.archipanion.Util.Config.logger
-import org.openapitools.client.*
-import org.vitrivr.engine.query.model.api.operator.AggregatorDescription
-import org.vitrivr.engine.query.model.api.operator.OperatorDescription
-import org.vitrivr.engine.query.model.api.operator.RetrieverDescription
-import org.vitrivr.engine.query.model.api.operator.TransformerDescription
+import org.archipanion.Service.Engine.Model.AggregatorDescription
+import org.archipanion.Service.Engine.Model.OperatorDescription
+import org.archipanion.Service.Engine.Model.RetrieverDescription
+import org.archipanion.Service.Engine.Model.TransformerDescription
 
 @OpenApi(
     path = "/api/v1/segments/{id}",
