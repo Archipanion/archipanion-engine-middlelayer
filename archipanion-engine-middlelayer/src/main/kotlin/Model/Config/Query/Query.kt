@@ -1,7 +1,7 @@
 package org.archipanion.Model.Config.Query
 
 import kotlinx.serialization.Serializable
-import org.vitrivr.engine.query.model.api.InformationNeedDescription
+import org.archipanion.Model.Config.Query.DynamicDescription.DynamicInformationNeedDescription
 
 @Serializable
 data class Query(
@@ -9,5 +9,5 @@ data class Query(
     val description: String,
     val path: String,
     val schemas: List<String>,
-    var informationNeedDescription: InformationNeedDescription? = null
+    var informationNeedDescription: DynamicInformationNeedDescription? = null
 )

@@ -1,4 +1,4 @@
-package org.vitrivr.engine.server.api.rest.model
+package org.archipanion.Controller.Api.Rest.Exceptions
 
 import kotlinx.serialization.Serializable
 

@@ -1,24 +1,16 @@
 {
+  "name": "Temporal Clip Query",
+  "description": "This pipeline takes a number of input texts and query the retrievals for the given temporal sequence.",
   "inputs": {
-    "mytext1": {"type": "TEXT", "data": "an orange starfish on the seafloor"},
-    "mytext2": {"type": "TEXT", "data": "a seasnake on the seafloor"}
+    "input#": {"type": "TEXT"}
   },
   "operations": {
-    "clip1" : {"type": "RETRIEVER", "field": "clip", "input": "mytext1"},
-    "lookup1" : {"type": "TRANSFORMER", "transformerName": "FieldLookup", "input": "clip1", "properties": {"field": "time", "keys": "start, end"}},
-    "relations1" : {"type": "TRANSFORMER", "transformerName": "RelationExpander", "input": "lookup1", "properties": {"outgoing": "partOf"}},
-    "clip2" : {"type": "RETRIEVER", "field": "clip", "input": "mytext2"},
-    "lookup2" : {"type": "TRANSFORMER", "transformerName": "FieldLookup", "input": "clip2", "properties": {"field": "time", "keys": "start, end"}},
-    "relations2" : {"type": "TRANSFORMER", "transformerName": "RelationExpander", "input": "lookup2", "properties": {"outgoing": "partOf"}},
-    "temporal" : {"type": "AGGREGATOR", "aggregatorName": "TemporalSequenceAggregator", "inputs": ["relations1", "relations2"]},
-    "score" : {"type": "TRANSFORMER", "transformerName": "ScoreAggregator",  "input": "temporal"},
-    "lookup3" : {"type": "TRANSFORMER", "transformerName": "FieldLookup", "input": "score", "properties": {"field": "file", "keys": "path"}}
+    "clip#" : {"type": "RETRIEVER", "name": "ClipRetriever", "input": "input#", "properties": {"field": "clip"}},
+    "lookup#" : {"type": "TRANSFORMER", "name": "FieldLookup", "input": "clip#", "properties": {"field": "time", "keys": "start, end"}},
+    "relations#" : {"type": "TRANSFORMER", "name": "RelationExpander", "input": "lookup#", "properties": {"outgoing": "partOf"}},
+    "temporal" : {"type": "AGGREGATOR", "name": "TemporalSequenceAggregator", "input": "relations#"},
+    "score" : {"type": "TRANSFORMER", "name": "ScoreAggregator",  "input": "temporal"},
+    "lookup" : {"type": "TRANSFORMER", "name": "FieldLookup", "input": "score", "properties": {"field": "file", "keys": "path"}}
   },
-  "context": {
-    "global": {
-      "limit": "10"
-    },
-    "local" : {}
-  },
-  "output": "lookup3"
+  "output": "lookup"
 }

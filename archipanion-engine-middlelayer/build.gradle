@@ -4,7 +4,7 @@ plugins {
     id "org.jetbrains.kotlin.plugin.serialization" version "$version_kotlin"
     id 'java-library'
     id 'idea'
-    id 'org.openapi.generator' version '5.2.0'
+    id 'org.openapi.generator' version '6.3.0'
     id "de.undercouch.download" version "5.4.0"
 }
 
@@ -20,7 +20,15 @@ repositories {
     }
 }
 
+def engineBuild = getLayout().buildDirectory.dir("/generated/main/kotlin/engine").get().asFile.toString()
 
+sourceSets {
+    main {
+        resources {
+            srcDir engineBuild
+        }
+    }
+}
 
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
@@ -54,11 +62,26 @@ dependencies {
     implementation group: 'io.javalin.community.ssl', name: 'ssl-plugin', version: version_javalin
 
 
-    /** Engine **/
-
-    implementation group: 'org.vitrivr', name: 'vitrivr-engine-query', version: version_vitrivr
-
 }
+
+def oasFile = "https://raw.githubusercontent.com/vitrivr/vitrivr-engine/main/vitrivr-engine-server/doc/oas.json"
+
+openApiGenerate {
+    generateApiTests = false
+    generateModelTests = false
+    validateSpec = false
+    skipValidateSpec = true
+
+    generatorName = 'kotlin'
+    remoteInputSpec = oasFile
+    outputDir = engineBuild
+    configOptions = [
+            npmName: '@vitrivr-engine/api',
+            enumPropertyNaming: 'original'
+    ]
+}
+
+
 
 tasks.test {
     useJUnitPlatform()
