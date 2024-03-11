@@ -13,10 +13,10 @@ import io.javalin.openapi.plugin.SecurityComponentConfiguration
 import io.javalin.openapi.plugin.swagger.SwaggerConfiguration
 import io.javalin.openapi.plugin.swagger.SwaggerPlugin
 import io.javalin.plugin.bundled.CorsPluginConfig
-import org.archipanion.Controller.Api.Cli.Cli
-import org.archipanion.Controller.Api.Rest.Exceptions.ErrorStatus
-import org.archipanion.Controller.Api.Rest.Exceptions.ErrorStatusException
-import org.archipanion.Controller.Api.Rest.Routes
+import org.archipanion.Controller.api.Cli.Cli
+import org.archipanion.Controller.api.Rest.Exceptions.ErrorStatus
+import org.archipanion.Controller.api.Rest.Exceptions.ErrorStatusException
+import org.archipanion.Controller.api.Rest.Routes
 import org.archipanion.Model.Config.ApiConfig
 import org.archipanion.Model.Config.Query.DynamicDescription.DynamicInformationNeedDescription
 import org.archipanion.Model.Config.Query.Queryset
@@ -52,7 +52,7 @@ fun main(args: Array<String>) {
     javalin.stop()
 }
 
-fun cliSetup(config: RootConfig) : Cli{
+fun cliSetup(config: RootConfig) : Cli {
     val cli = Cli(config)
     return cli
 }

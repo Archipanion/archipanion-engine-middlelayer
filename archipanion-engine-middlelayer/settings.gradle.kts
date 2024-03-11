@@ -3,3 +3,4 @@ plugins {
 }
 rootProject.name = "archipanion-engine-middlelayer"
 include("engineService")
+include("service.engine")

@@ -1,4 +1,4 @@
-package org.archipanion.Controller.Api.Rest.Exceptions
+package org.archipanion.Controller.api.Rest.Exceptions
 
 
 data class ErrorStatusException(val statusCode: Int, override val message: String) : Exception(message) {

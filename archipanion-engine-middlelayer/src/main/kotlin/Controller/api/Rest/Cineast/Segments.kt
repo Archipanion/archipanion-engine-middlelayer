@@ -1,4 +1,4 @@
-package org.archipanion.Controller.Api.Rest.Cineast
+package org.archipanion.Controller.api.Rest.Cineast
 
 
 import io.javalin.http.Context
@@ -7,12 +7,11 @@ import org.archipanion.Model.Config.Query.DynamicDescription.DynamicInformationN
 import org.archipanion.Model.Config.Query.DynamicDescription.DynamicOperations
 import org.archipanion.Model.Config.Query.DynamicDescription.OperationType
 import org.archipanion.Model.Segment.SegmentQueryResult
+import org.archipanion.Service.Engine.Model.OperatorDescription
 import org.archipanion.Util.Config.ConfigReader
 import org.archipanion.Util.Config.logger
-import org.archipanion.Service.Engine.Model.AggregatorDescription
-import org.archipanion.Service.Engine.Model.OperatorDescription
-import org.archipanion.Service.Engine.Model.RetrieverDescription
-import org.archipanion.Service.Engine.Model.TransformerDescription
+
+
 
 @OpenApi(
     path = "/api/v1/segments/{id}",
@@ -35,11 +34,11 @@ fun findSegments(ctx: Context) {
 
 }
 
-fun queryCreator(queryInputs: List<org.openapitools.client.models.InputData>, dind: DynamicInformationNeedDescription): org.openapitools.client.models.InformationNeedDescription {
-    val pipelineInputs: MutableMap<String, org.openapitools.client.models.InputData> = mutableMapOf()
-    val operations: MutableMap<String, org.openapitools.client.models.OperatorDescription > = mutableMapOf()
+fun queryCreator(queryInputs: List<InputData>, dind: DynamicInformationNeedDescription): InformationNeedDescription {
+    val pipelineInputs: MutableMap<String, InputData> = mutableMapOf()
+    val operations: MutableMap<String, OperatorDescription > = mutableMapOf()
     val output: String = "output"
-    val context: org.openapitools.client.models.QueryContext = org.openapitools.client.models.QueryContext()
+    val context: QueryContext = QueryContext()
 
     val ic = 0
     for (input in queryInputs) {
@@ -52,14 +51,14 @@ fun queryCreator(queryInputs: List<org.openapitools.client.models.InputData>, di
                     if (dynOperationDescription.input == dynInputName) {
                         val specificOperationName = dynOperationName.replace("#", ic.toString())
                         val operatorCreator = operatorCreator(dind.operations[dynOperationName]!!)
-                        operations[specificOperationName] = operatorCreator as org.openapitools.client.models.OperatorDescription
+                        operations[specificOperationName] = operatorCreator as OperatorDescription
                     }
                 }
             }
         }
 
     }
-    return org.openapitools.client.models.InformationNeedDescription(pipelineInputs, operations, output, context)
+    return InformationNeedDescription(pipelineInputs, operations, output, context)
 }
 
 fun operatorCreator(dyno: DynamicOperations): OperatorDescription {

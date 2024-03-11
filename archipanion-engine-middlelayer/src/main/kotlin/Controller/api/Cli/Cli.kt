@@ -1,4 +1,4 @@
-package org.archipanion.Controller.Api.Cli
+package org.archipanion.Controller.api.Cli
 
 import com.github.ajalt.clikt.core.*
 import org.archipanion.Controller.Api.Cli.commands.ConfigCommand

@@ -1,4 +1,4 @@
-package org.archipanion.Controller.Api.Rest.Exceptions
+package org.archipanion.Controller.api.Rest.Exceptions
 
 import kotlinx.serialization.Serializable
 

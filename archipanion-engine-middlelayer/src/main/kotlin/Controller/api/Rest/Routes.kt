@@ -1,8 +1,8 @@
-package org.archipanion.Controller.Api.Rest
+package org.archipanion.Controller.api.Rest
 
 import io.javalin.apibuilder.ApiBuilder
 import io.javalin.http.Context
-import org.archipanion.Controller.Api.Rest.Cineast.findSegments
+import org.archipanion.Controller.api.Rest.Cineast.findSegments
 import org.archipanion.Model.Config.ApiConfig
 
 class Routes {
