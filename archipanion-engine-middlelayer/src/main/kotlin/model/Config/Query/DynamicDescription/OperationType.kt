@@ -1,4 +1,4 @@
-package org.archipanion.Model.Config.Query.DynamicDescription
+package org.archipanion.model.Config.Query.DynamicDescription
 
 enum class OperationType {
     RETRIEVER,

@@ -1,4 +1,4 @@
-package org.archipanion.Model.Config.Query.DynamicDescription
+package org.archipanion.model.Config.Query.DynamicDescription
 
 import kotlinx.serialization.Serializable
 

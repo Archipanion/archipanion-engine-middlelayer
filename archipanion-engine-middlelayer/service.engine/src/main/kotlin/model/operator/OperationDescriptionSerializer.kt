@@ -1,4 +1,4 @@
-package org.archipanion.Service.Engine.Model
+package org.vitrivr.engine.query.model.api.operator
 
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.json.JsonContentPolymorphicSerializer
