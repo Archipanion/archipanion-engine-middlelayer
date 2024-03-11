@@ -1,0 +1,17 @@
+{
+  "setname": "set1",
+  "queries": [
+    {
+      "name": "ml-clip",
+      "description": "This pipeline embedds the provided text, embed it and retrieves based on temporal clip features",
+      "path": "./queryconfig/query-mlt.json",
+      "schemas": ["ptt", "filmwochenschau"]
+    },
+    {
+      "name": "mlt-mlt",
+      "description": "This pipeline searches with mlt",
+      "path": "./queryconfig/query-mlt.json",
+      "schemas": ["ptt"]
+    }
+  ]
+}
