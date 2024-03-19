@@ -29,7 +29,7 @@ data class TransformerDescription(
 @Serializable
 data class AggregatorDescription(
     val aggregatorName: String,
-    val inputs: List<String>,
+    val inputs: MutableList<String>,
     val properties: Map<String, String> = emptyMap()
 ) : OperatorDescription() {
     override val type = OperatorType.AGGREGATOR

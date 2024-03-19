@@ -14,12 +14,12 @@
     {
       "ip": "localhost",
       "schema": "ptt",
-      "port": 8080
+      "port": 7070
     },
     {
       "ip": "localhost",
       "schema": "filmwochenschau",
-      "port": 8080
+      "port": 7070
     }
   ]
 }

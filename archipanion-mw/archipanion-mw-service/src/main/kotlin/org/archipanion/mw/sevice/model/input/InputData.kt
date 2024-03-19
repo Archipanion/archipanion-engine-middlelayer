@@ -10,7 +10,7 @@ import org.archipanion.mw.sevice.model.util.BufferedImage
 
 import java.awt.image.BufferedImage
 
-@Serializable(with = InputDataSerializer::class)
+@Serializable
 sealed class InputData {
     abstract val type: InputType
 

@@ -18,4 +18,5 @@ object InputDataSerializer : JsonContentPolymorphicSerializer<InputData>(InputDa
             InputType.ID -> RetrievableIdInputData.serializer()
         }
     }
+
 }

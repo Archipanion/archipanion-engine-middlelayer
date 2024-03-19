@@ -2,10 +2,10 @@
   "name": "Temporal Clip Query",
   "description": "This pipeline takes a number of input texts and query the retrievals for the given temporal sequence.",
   "inputs": {
-    "input%i": {"type": "TEXT"}
+    "text%i": {"type": "TEXT"}
   },
   "operations": {
-    "clip%i" : {"type": "RETRIEVER", "name": "ClipRetriever", "input": "input%i", "properties": {"field": "clip"}},
+    "clip%i" : {"type": "RETRIEVER", "name": "ClipRetriever", "input": "text%i", "properties": {"field": "clip"}},
     "lookup%i" : {"type": "TRANSFORMER", "name": "FieldLookup", "input": "clip%i", "properties": {"field": "time", "keys": "start, end"}},
     "relations%i" : {"type": "TRANSFORMER", "name": "RelationExpander", "input": "lookup%i", "properties": {"outgoing": "partOf"}},
     "temporal" : {"type": "AGGREGATOR", "name": "TemporalSequenceAggregator", "input": "relations%i"},
