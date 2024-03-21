@@ -99,7 +99,7 @@ class QueryCreator() {
             do {
                 var foundSuccessor = false
                 nextOperation@ for ((dynOperationName, dynOperationDescription) in dynInd.operations) {
-                    if (dynOperationDescription.input == dynParentName) {
+                    if (dynOperationDescription.input.contains(dynParentName)) {
                         foundSuccessor = true
                         dynParentName = dynOperationName
                         var specificOperationName: String

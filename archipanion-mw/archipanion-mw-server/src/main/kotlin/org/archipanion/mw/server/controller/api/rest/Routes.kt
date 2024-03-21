@@ -1,7 +1,6 @@
 package org.archipanion.mw.server.controller.api.rest
 
 import io.javalin.apibuilder.ApiBuilder
-import org.archipanion.mw.server.controller.api.rest.cineast.findSegments
 import org.archipanion.mw.server.model.config.ApiConfig
 
 

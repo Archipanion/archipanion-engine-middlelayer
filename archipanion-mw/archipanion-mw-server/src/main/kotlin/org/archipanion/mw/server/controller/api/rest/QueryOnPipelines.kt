@@ -1,9 +1,8 @@
-package org.archipanion.mw.server.controller.api.rest.cineast
+package org.archipanion.mw.server.controller.api.rest
 
 
 import QueryCreator
 import com.fasterxml.jackson.core.JsonParseException
-import com.github.ajalt.clikt.core.FileNotFound
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.javalin.http.Context
@@ -19,10 +18,7 @@ import org.archipanion.mw.server.model.config.query.dynamicDescription.DynamicIn
 import org.archipanion.mw.server.model.segment.SegmentQueryResult
 import org.archipanion.mw.server.util.config.ConfigReader
 import org.archipanion.mw.sevice.controller.QueryService
-import org.archipanion.mw.sevice.model.input.InputData
 import org.archipanion.mw.sevice.model.input.Inputs
-import org.archipanion.mw.sevice.model.input.TextInputData
-import org.archipanion.mw.sevice.model.result.QueryResult
 import org.archipanion.mw.sevice.util.serialization.KotlinxJsonMapper
 import org.vitrivr.engine.query.model.api.InformationNeedDescription
 import java.io.FileNotFoundException

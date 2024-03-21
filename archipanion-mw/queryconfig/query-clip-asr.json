@@ -1,0 +1,17 @@
+{
+  "name": "Temporal Clip Query",
+  "description": "This pipeline takes a number of input texts and query the retrievals for the given temporal sequence.",
+  "inputs": {
+    "%i-in-clip": {"type": "TEXT", "name": "clip"},
+    "%i-in-asr": {"type": "TEXT", "name": "asr"}
+  },
+  "operations": {
+    "%i-clip" : {"type": "RETRIEVER", "name": "ClipRetriever", "input": "%i-in-clip", "properties": {"field": "clip"}},
+    "%i-asr" : {"type": "RETRIEVER", "name": "AsrRetriever", "input": "%i-in-asr", "properties": {"field": "clip"}},
+    "%i-stage" : {"type": "AGGREGATOR", "name": "WeightedScoreFusion", "input": "%i-clip, %i-asr"},
+    "%i-time" : {"type": "TRANSFORMER", "name": "FieldLookup", "input": "%i-stage", "properties": {"field": "time", "keys": "start, end"}},
+    "%i-relations" : {"type": "TRANSFORMER", "name": "RelationExpander", "input": "%i-time", "properties": {"outgoing": "partOf"}},
+    "temporal" : {"type": "AGGREGATOR", "name": "TemporalSequenceAggregator", "input": "%i-relations" }
+  },
+  "output": "temporal"
+}
