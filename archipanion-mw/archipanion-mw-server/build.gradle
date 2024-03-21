@@ -52,6 +52,10 @@ dependencies {
     implementation group: 'io.javalin.community.ssl', name: 'ssl-plugin', version: version_javalin
 
 
+    implementation("io.ktor:ktor-server-netty:2.0.0")
+    implementation("io.ktor:ktor-websockets:2.0.0")
+    implementation("io.ktor:ktor-server-websockets:2.0.0")
+
 }
 
 tasks.test {

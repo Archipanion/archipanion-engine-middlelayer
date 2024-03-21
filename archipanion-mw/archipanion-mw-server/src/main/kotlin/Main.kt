@@ -27,6 +27,7 @@ private val logger: KLogger = KotlinLogging.logger {}
  * Entry point for archipanion engine middel layer
  */
 fun main(args: Array<String>) {
+
     logger.debug { "Starting up archipanion middle layer with args ${args.toString()}" }
 
     val config = ConfigReader().read<RootConfig>()
@@ -55,6 +56,9 @@ fun cliSetup(config: RootConfig) : Cli {
     return cli
 }
 
+fun webSocketSetup(config: RootConfig) {
+
+}
 
 
 fun javelinSetup(config: ApiConfig): Javalin {

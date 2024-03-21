@@ -60,6 +60,8 @@ dependencies {
     implementation group: 'io.javalin.community.openapi', name: 'javalin-openapi-plugin', version: version_javalin
     implementation group: 'io.javalin.community.ssl', name: 'ssl-plugin', version: version_javalin
 
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
+
 }
 
 def oasFile = "https://raw.githubusercontent.com/vitrivr/vitrivr-engine/main/vitrivr-engine-server/doc/oas.json"
