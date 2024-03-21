@@ -10,25 +10,21 @@ import org.archipanion.mw.sevice.model.util.BufferedImage
 
 import java.awt.image.BufferedImage
 
-@Serializable
+@Serializable(with = InputDataSerializer::class)
 sealed class InputData {
     abstract val type: InputType
-
-    abstract fun toContent() : ContentElement<*>
-
+    abstract fun toContent(): ContentElement<*>
 }
 
 @Serializable
-data class TextInputData(val data: String) : InputData() {
-    override val type = InputType.TEXT
-
+data class TextInputData(val data: String, override val type: InputType = InputType.TEXT) : InputData() {
     override fun toContent(): TextContent = InMemoryTextContent(data)
 
 }
 
 @Serializable
-data class VectorInputData(val data: List<Float>) : InputData(){
-    override val type = InputType.VECTOR
+data class VectorInputData(val data: List<Float>, override val type: InputType = InputType.VECTOR) : InputData() {
+
 
     override fun toContent(): ContentElement<*> {
         throw UnsupportedOperationException("Cannot derive content from VectorInputData")
@@ -37,8 +33,8 @@ data class VectorInputData(val data: List<Float>) : InputData(){
 }
 
 @Serializable
-data class ImageInputData(val data: String) : InputData() {
-    override val type = InputType.VECTOR
+data class ImageInputData(val data: String,   override val type: InputType = InputType.VECTOR) : InputData() {
+
     override fun toContent(): ImageContent = InMemoryImageContent(image)
 
     private val image: BufferedImage by lazy { BufferedImage(data) }
@@ -46,9 +42,9 @@ data class ImageInputData(val data: String) : InputData() {
 }
 
 @Serializable
-data class RetrievableIdInputData(val id: String) : InputData() {
+data class RetrievableIdInputData(val id: String,     override val type: InputType = InputType.ID) : InputData() {
 
-    override val type = InputType.ID
+
 
     override fun toContent(): ContentElement<*> {
         throw UnsupportedOperationException("Cannot derive content from RetrievableInputData")

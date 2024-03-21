@@ -7,6 +7,6 @@ data class DynamicInformationNeedDescription(
     val name: String,
     val description: String,
     val inputs: Map<String, DynamicInput>,
-    val operations: Map<String, DynamicOperations>,
+    val operations: Map<String, DynamicOperation>,
     val output: String,
 )

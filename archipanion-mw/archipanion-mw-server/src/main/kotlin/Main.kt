@@ -18,7 +18,7 @@ import org.archipanion.mw.server.model.config.RootConfig
 import org.archipanion.mw.server.model.config.query.Queryset
 import org.archipanion.mw.server.model.config.query.dynamicDescription.DynamicInformationNeedDescription
 import org.archipanion.mw.server.util.config.ConfigReader
-import org.archipanion.mw.server.util.serialization.KotlinxJsonMapper
+import org.archipanion.mw.sevice.util.serialization.KotlinxJsonMapper
 
 
 private val logger: KLogger = KotlinLogging.logger {}

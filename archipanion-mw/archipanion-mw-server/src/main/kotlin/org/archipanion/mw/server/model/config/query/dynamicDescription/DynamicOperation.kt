@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class DynamicOperations(
+data class DynamicOperation(
     val type: OperationType,
     val name: String,
     val input: String,

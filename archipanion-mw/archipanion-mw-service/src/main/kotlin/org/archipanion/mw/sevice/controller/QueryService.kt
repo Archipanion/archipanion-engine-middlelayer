@@ -1,13 +1,13 @@
 package org.archipanion.mw.sevice.controller
 
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import okhttp3.*
+import io.javalin.json.fromJsonString
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
 import org.archipanion.mw.sevice.model.result.QueryResult
-
-import org.vitrivr.engine.query.model.api.InformationNeedDescription
+import org.archipanion.mw.sevice.util.serialization.KotlinxJsonMapper
 
 
 class QueryService(val basePath: String = "http://localhost:7070") {
@@ -27,8 +27,8 @@ class QueryService(val basePath: String = "http://localhost:7070") {
             .build()
 
         val response = client.newCall(request).execute()
-        val objectMapper: ObjectMapper = ObjectMapper()
-        val result = objectMapper.readValue(response.body()?.string(), QueryResult::class.java)
+
+        val result = KotlinxJsonMapper.fromJsonString<QueryResult>(response.body()!!.string(), QueryResult::class.java)
         return result
     }
 }

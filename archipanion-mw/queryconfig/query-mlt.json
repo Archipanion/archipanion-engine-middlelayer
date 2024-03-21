@@ -2,13 +2,13 @@
   "name": "Temporal Clip Query",
   "description": "This pipeline takes a number of input texts and query the retrievals for the given temporal sequence.",
   "inputs": {
-    "text%i": {"type": "TEXT"}
+    "%i-text": {"type": "TEXT"}
   },
   "operations": {
-    "clip%i" : {"type": "RETRIEVER", "name": "ClipRetriever", "input": "text%i", "properties": {"field": "clip"}},
-    "lookup%i" : {"type": "TRANSFORMER", "name": "FieldLookup", "input": "clip%i", "properties": {"field": "time", "keys": "start, end"}},
-    "relations%i" : {"type": "TRANSFORMER", "name": "RelationExpander", "input": "lookup%i", "properties": {"outgoing": "partOf"}},
-    "temporal" : {"type": "AGGREGATOR", "name": "TemporalSequenceAggregator", "input": "relations%i"},
+    "%i-clip" : {"type": "RETRIEVER", "name": "ClipRetriever", "input": "%i-text", "properties": {"field": "clip"}},
+    "%i-lookup" : {"type": "TRANSFORMER", "name": "FieldLookup", "input": "%i-clip", "properties": {"field": "time", "keys": "start, end"}},
+    "%i-relations" : {"type": "TRANSFORMER", "name": "RelationExpander", "input": "%i-lookup", "properties": {"outgoing": "partOf"}},
+    "temporal" : {"type": "AGGREGATOR", "name": "TemporalSequenceAggregator", "input": "%i-relations"},
     "score" : {"type": "TRANSFORMER", "name": "ScoreAggregator",  "input": "temporal"},
     "lookup" : {"type": "TRANSFORMER", "name": "FieldLookup", "input": "score", "properties": {"field": "file", "keys": "path"}}
   },

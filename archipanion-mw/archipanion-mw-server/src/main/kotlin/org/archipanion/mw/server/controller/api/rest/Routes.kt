@@ -18,8 +18,10 @@ class Routes {
             // Retrieval paths
             ApiBuilder.path("api") {
                 ApiBuilder.path("v1") {
-                    ApiBuilder.path("segments") {
-                        ApiBuilder.get("{id}") { ctx -> findSegments(ctx) }
+                    ApiBuilder.path("ptt") {
+                        ApiBuilder.path("ml-clip") {
+                            ApiBuilder.post("query") { ctx -> findSegments(ctx) }
+                        }
                     }
                 }
             }
