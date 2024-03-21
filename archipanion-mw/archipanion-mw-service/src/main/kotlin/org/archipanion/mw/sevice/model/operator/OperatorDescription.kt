@@ -2,7 +2,8 @@ package org.archipanion.mw.sevice.model.operator
 
 import kotlinx.serialization.Serializable
 
-@Serializable(with = OperationDescriptionSerializer::class)
+
+@Serializable
 sealed class OperatorDescription{
     abstract val type: OperatorType
 }

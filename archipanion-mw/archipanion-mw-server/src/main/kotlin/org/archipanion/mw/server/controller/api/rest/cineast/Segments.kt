@@ -2,6 +2,8 @@ package org.archipanion.mw.server.controller.api.rest.cineast
 
 
 import QueryCreator
+import com.fasterxml.jackson.core.JsonParseException
+import com.github.ajalt.clikt.core.FileNotFound
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.javalin.http.Context
@@ -12,14 +14,18 @@ import io.javalin.openapi.OpenApiContent
 import io.javalin.openapi.OpenApiResponse
 import org.archipanion.mw.server.controller.api.rest.exceptions.ErrorStatus
 import org.archipanion.mw.server.controller.api.rest.exceptions.ErrorStatusException
+import org.archipanion.mw.server.model.config.query.Queryset
 import org.archipanion.mw.server.model.config.query.dynamicDescription.DynamicInformationNeedDescription
 import org.archipanion.mw.server.model.segment.SegmentQueryResult
 import org.archipanion.mw.server.util.config.ConfigReader
 import org.archipanion.mw.sevice.controller.QueryService
+import org.archipanion.mw.sevice.model.input.InputData
 import org.archipanion.mw.sevice.model.input.Inputs
+import org.archipanion.mw.sevice.model.input.TextInputData
 import org.archipanion.mw.sevice.model.result.QueryResult
 import org.archipanion.mw.sevice.util.serialization.KotlinxJsonMapper
 import org.vitrivr.engine.query.model.api.InformationNeedDescription
+import java.io.FileNotFoundException
 import kotlin.time.measureTime
 
 
@@ -39,10 +45,29 @@ val logger: KLogger = KotlinLogging.logger {}
 fun findSegments(ctx: Context) {
     logger.debug { "Query Segment with id" }
     val duration = measureTime {
-        val dind = ConfigReader("./queryconfig/query-mlt.json").read<DynamicInformationNeedDescription>()
-        logger.trace { "Query loaded: ${dind.toString()}" }
 
-        //val inputs = listOf<InputData>(TextInputData("Tiger"), TextInputData("Lion"))
+        val schema = ctx.pathParam("schema")
+        val pipeline = ctx.pathParam("pipeline")
+
+
+        val querySet = ConfigReader("./queryconfig/queryset.json").read<Queryset>() ?: throw ErrorStatusException(
+            500,
+            "Queryset not found"
+        )
+        val query = querySet.queries.find { it.name == pipeline } ?: throw ErrorStatusException(500, "Query not found")
+        if (query.schemas.contains(schema).not()) throw ErrorStatusException(500, "Schema not found")
+        val dind = try {
+            ConfigReader(query.path).read<DynamicInformationNeedDescription>()
+        } catch (e: FileNotFoundException) {
+            throw ErrorStatusException(500, "Query not found")
+        } catch (e: JsonParseException ) {
+            throw ErrorStatusException(500, "Error parsing query file")
+        } catch (e: Exception) {
+            throw ErrorStatusException(500, "Query not found")
+        }
+        logger.trace { "Query pipeline $pipeline loaded: ${dind.toString()} for schema $schema" }
+
+        //val inputs = mapOf<String, InputData>("1" to TextInputData("Tiger"), "1" to TextInputData("Lion"))
 
         val inputData = try {
             ctx.bodyAsClass<Inputs>()
@@ -55,7 +80,7 @@ fun findSegments(ctx: Context) {
         logger.trace { "Query loaded: ${ind.toString()}" }
 
         val payload = KotlinxJsonMapper.toJsonString(ind, InformationNeedDescription::class.java)
-        val response = QueryService().postQuery("MVK", payload)
+        val response = QueryService().postQuery(schema, payload)
 
 
         if (response != null) {

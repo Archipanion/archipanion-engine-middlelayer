@@ -18,8 +18,8 @@ class Routes {
             // Retrieval paths
             ApiBuilder.path("api") {
                 ApiBuilder.path("v1") {
-                    ApiBuilder.path("ptt") {
-                        ApiBuilder.path("ml-clip") {
+                    ApiBuilder.path("{schema}") {
+                        ApiBuilder.path("{pipeline}") {
                             ApiBuilder.post("query") { ctx -> findSegments(ctx) }
                         }
                     }

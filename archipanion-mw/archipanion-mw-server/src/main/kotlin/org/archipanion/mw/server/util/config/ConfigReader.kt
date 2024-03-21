@@ -31,6 +31,6 @@ class ConfigReader(
             }
         } catch (e: Throwable) {
             logger.error(e) { "Failed to read configuration from $path due to an exception." }
-            null
+            throw e
         }
 }
