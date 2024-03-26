@@ -1,0 +1,158 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "vitrivr engine API",
+    "version" : "1.0.0",
+    "description" : "API for the vitrivr engine."
+  },
+  "paths" : {
+    "/api/v1/{schema}/{pipeline}/query" : {
+      "post" : {
+        "tags" : [ "Retrieval" ],
+        "summary" : "Finds segments for specified ids",
+        "operationId" : "postExecuteQuery",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Inputs"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SegmentQueryResult"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorStatus"
+                }
+              }
+            }
+          }
+        },
+        "deprecated" : false,
+        "security" : [ ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "ErrorStatus" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "message" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "message" ]
+      },
+      "Segment" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "segmentId" : {
+            "type" : "string"
+          },
+          "objectId" : {
+            "type" : "string"
+          },
+          "start" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "end" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "startabs" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "endabs" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "count" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "sequenceNumber" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "required" : [ "segmentId", "objectId", "start", "end", "startabs", "endabs", "count", "sequenceNumber" ]
+      },
+      "SegmentQueryResult" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "queryId" : {
+            "type" : "string"
+          },
+          "content" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Segment"
+            }
+          },
+          "messageType" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "queryId", "content", "messageType" ]
+      },
+      "InputData" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "type" : {
+            "$ref" : "#/components/schemas/InputType"
+          }
+        },
+        "required" : [ "type" ]
+      },
+      "InputType" : {
+        "type" : "string",
+        "enum" : [ "TEXT", "IMAGE", "VECTOR", "ID" ]
+      },
+      "Inputs" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "inputs" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/InputData"
+            }
+          }
+        },
+        "required" : [ "inputs" ]
+      }
+    },
+    "securitySchemes" : {
+      "CookieAuth" : {
+        "in" : "cookie",
+        "name" : "SESSIONID",
+        "type" : "apiKey"
+      }
+    }
+  },
+  "servers" : [ ],
+  "security" : [ ]
+}

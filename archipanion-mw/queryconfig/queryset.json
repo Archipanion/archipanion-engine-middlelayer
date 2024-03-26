@@ -12,12 +12,6 @@
       "description": "This pipeline searches with mlt",
       "path": "./queryconfig/query-mlt.json",
       "schemas": ["MVC","V3C"]
-    },
-    {
-      "name": "clip-asr",
-      "description": "This pipeline searches with mlt",
-      "path": "./queryconfig/query-clip-asr.json",
-      "schemas": ["MVC"]
     }
   ]
 }

@@ -7,10 +7,7 @@ import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.javalin.http.Context
 import io.javalin.http.bodyAsClass
-import io.javalin.openapi.HttpMethod
-import io.javalin.openapi.OpenApi
-import io.javalin.openapi.OpenApiContent
-import io.javalin.openapi.OpenApiResponse
+import io.javalin.openapi.*
 import org.archipanion.mw.server.controller.api.rest.exceptions.ErrorStatus
 import org.archipanion.mw.server.controller.api.rest.exceptions.ErrorStatusException
 import org.archipanion.mw.server.model.config.query.Queryset
@@ -29,10 +26,11 @@ val logger: KLogger = KotlinLogging.logger {}
 
 @OpenApi(
     path = "/api/v1/{schema}/{pipeline}/query",
-    methods = [HttpMethod.GET],
+    methods = [HttpMethod.POST],
     summary = "Finds segments for specified ids",
     operationId = "postExecuteQuery",
     tags = ["Retrieval"],
+    requestBody = OpenApiRequestBody([OpenApiContent(Inputs::class)]),
     responses = [
         OpenApiResponse("200", [OpenApiContent(SegmentQueryResult::class)]),
         OpenApiResponse("400", [OpenApiContent(ErrorStatus::class)])
@@ -64,7 +62,7 @@ fun findSegments(ctx: Context) {
         logger.trace { "Query pipeline $pipeline loaded: ${dind.toString()} for schema $schema" }
 
         //val inputs = mapOf<String, InputData>("1" to TextInputData("Tiger"), "1" to TextInputData("Lion"))
-
+        // Todo: Error if two inputs have the same id
         val inputData = try {
             ctx.bodyAsClass<Inputs>()
         } catch (e: Exception) {

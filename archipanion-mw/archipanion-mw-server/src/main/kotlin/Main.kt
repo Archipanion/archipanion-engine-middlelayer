@@ -9,10 +9,10 @@ import io.javalin.openapi.plugin.SecurityComponentConfiguration
 import io.javalin.openapi.plugin.swagger.SwaggerConfiguration
 import io.javalin.openapi.plugin.swagger.SwaggerPlugin
 import io.javalin.plugin.bundled.CorsPluginConfig
-import org.archipanion.mw.server.controller.api.rest.Routes
+import org.archipanion.mw.server.controller.api.cli.Cli
+import org.archipanion.mw.server.controller.api.rest.configureApiRoutes
 import org.archipanion.mw.server.controller.api.rest.exceptions.ErrorStatus
 import org.archipanion.mw.server.controller.api.rest.exceptions.ErrorStatusException
-import org.archipanion.mw.server.controller.api.cli.Cli
 import org.archipanion.mw.server.model.config.ApiConfig
 import org.archipanion.mw.server.model.config.RootConfig
 import org.archipanion.mw.server.model.config.query.Queryset
@@ -99,7 +99,7 @@ fun javelinSetup(config: ApiConfig): Javalin {
             )
         )
     }.routes {
-        Routes.configureApiRoutes(config)
+        configureApiRoutes(config)
     }.exception(ErrorStatusException::class.java) { e, ctx ->
         ctx.status(e.statusCode).json(ErrorStatus(e.message))
     }.exception(Exception::class.java) { e, ctx ->

@@ -17,11 +17,14 @@ repositories {
         url "https://oss.sonatype.org/content/repositories/snapshots/"
     }
 }
+/* Common plugins. */
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
     api project(':archipanion-mw-service')
-
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
 
     /* Kotlinx Extensions */
     implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: version_kotlinx_coroutines
@@ -55,6 +58,9 @@ dependencies {
     implementation("io.ktor:ktor-server-netty:2.0.0")
     implementation("io.ktor:ktor-websockets:2.0.0")
     implementation("io.ktor:ktor-server-websockets:2.0.0")
+
+    /* Kapt. */
+    kapt("io.javalin.community.openapi:openapi-annotation-processor:$version_javalin")
 
 }
 
