@@ -12,10 +12,10 @@ import org.archipanion.mw.server.controller.api.rest.exceptions.ErrorStatus
 import org.archipanion.mw.server.controller.api.rest.exceptions.ErrorStatusException
 import org.archipanion.mw.server.model.config.query.Queryset
 import org.archipanion.mw.server.model.config.query.dynamicDescription.DynamicInformationNeedDescription
-import org.archipanion.mw.server.model.segment.SegmentQueryResult
 import org.archipanion.mw.server.util.config.ConfigReader
 import org.archipanion.mw.sevice.controller.QueryService
 import org.archipanion.mw.sevice.model.input.Inputs
+import org.archipanion.mw.sevice.model.result.QueryResult
 import org.archipanion.mw.sevice.util.serialization.KotlinxJsonMapper
 import org.vitrivr.engine.query.model.api.InformationNeedDescription
 import java.io.FileNotFoundException
@@ -32,7 +32,7 @@ val logger: KLogger = KotlinLogging.logger {}
     tags = ["Retrieval"],
     requestBody = OpenApiRequestBody([OpenApiContent(Inputs::class)]),
     responses = [
-        OpenApiResponse("200", [OpenApiContent(SegmentQueryResult::class)]),
+        OpenApiResponse("200", [OpenApiContent(QueryResult::class)]),
         OpenApiResponse("400", [OpenApiContent(ErrorStatus::class)])
     ]
 )

@@ -28,7 +28,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/SegmentQueryResult"
+                  "$ref" : "#/components/schemas/QueryResult"
                 }
               }
             }
@@ -61,62 +61,6 @@
         },
         "required" : [ "message" ]
       },
-      "Segment" : {
-        "type" : "object",
-        "additionalProperties" : false,
-        "properties" : {
-          "segmentId" : {
-            "type" : "string"
-          },
-          "objectId" : {
-            "type" : "string"
-          },
-          "start" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "end" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "startabs" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "endabs" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "count" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "sequenceNumber" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        },
-        "required" : [ "segmentId", "objectId", "start", "end", "startabs", "endabs", "count", "sequenceNumber" ]
-      },
-      "SegmentQueryResult" : {
-        "type" : "object",
-        "additionalProperties" : false,
-        "properties" : {
-          "queryId" : {
-            "type" : "string"
-          },
-          "content" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Segment"
-            }
-          },
-          "messageType" : {
-            "type" : "string"
-          }
-        },
-        "required" : [ "queryId", "content", "messageType" ]
-      },
       "InputData" : {
         "type" : "object",
         "additionalProperties" : false,
@@ -143,6 +87,48 @@
           }
         },
         "required" : [ "inputs" ]
+      },
+      "QueryResult" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "retrievables" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/QueryResultRetrievable"
+            }
+          }
+        },
+        "required" : [ "retrievables" ]
+      },
+      "QueryResultRetrievable" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "score" : {
+            "type" : "number",
+            "format" : "float"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "parts" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "properties" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        },
+        "required" : [ "id", "score", "type", "parts", "properties" ]
       }
     },
     "securitySchemes" : {
