@@ -1,10 +1,16 @@
 {
   "schemas": [
     {
-      "schema": "ptt"
+      "schema": "ptt",
+      "description": "The PTT schema. Containing videos and Images from the PTT dataset."
     },
     {
-      "schema": "filmwochenschau"
+      "schema": "arc",
+      "description": "Archipanion schema. For Demo purposes."
+    },
+    {
+      "schema": "sfa",
+      "description": "Swiss Federal Archives schema. For Demo purposes."
     }
   ],
   "apiEndpoint": {
@@ -18,7 +24,12 @@
     },
     {
       "ip": "localhost",
-      "schema": "filmwochenschau",
+      "schema": "arc",
+      "port": 7070
+    },
+    {
+      "ip": "localhost",
+      "schema": "arc",
       "port": 7070
     }
   ]
