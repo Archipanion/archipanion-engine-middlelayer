@@ -1,4 +1,5 @@
 {
+  "queryConfigPath": "./queryCatalog/generalSet.json",
   "schemas": [
     {
       "schema": "ptt",

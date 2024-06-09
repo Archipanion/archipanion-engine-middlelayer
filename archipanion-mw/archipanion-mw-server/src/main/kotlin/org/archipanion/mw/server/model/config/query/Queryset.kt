@@ -5,6 +5,6 @@ import org.archipanion.mw.server.model.config.query.Query
 
 @Serializable
 data class Queryset(
-    val setname: String,
+    val setName: String,
     val queries: List<Query> = emptyList()
 )

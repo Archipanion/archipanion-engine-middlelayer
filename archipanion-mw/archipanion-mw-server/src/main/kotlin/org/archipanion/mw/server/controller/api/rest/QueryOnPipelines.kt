@@ -10,6 +10,7 @@ import io.javalin.http.bodyAsClass
 import io.javalin.openapi.*
 import org.archipanion.mw.server.controller.api.rest.exceptions.ErrorStatus
 import org.archipanion.mw.server.controller.api.rest.exceptions.ErrorStatusException
+import org.archipanion.mw.server.model.config.RootConfig
 import org.archipanion.mw.server.model.config.query.Queryset
 import org.archipanion.mw.server.model.config.query.dynamicDescription.DynamicInformationNeedDescription
 import org.archipanion.mw.server.util.config.ConfigReader
@@ -43,8 +44,11 @@ fun findSegments(ctx: Context) {
         val schema = ctx.pathParam("schema")
         val pipeline = ctx.pathParam("pipeline")
 
+        val config = ConfigReader().read<RootConfig>()
 
-        val querySet = ConfigReader("./queryconfig/queryset.json").read<Queryset>() ?: throw ErrorStatusException(
+        logger.trace { "Config loaded: ${config.toString()}" }
+
+        val querySet = config?.let { ConfigReader(it.queryConfigPath).read<Queryset>() } ?: throw ErrorStatusException(
             500,
             "Queryset not found"
         )

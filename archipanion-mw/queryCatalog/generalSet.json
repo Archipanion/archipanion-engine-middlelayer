@@ -1,0 +1,17 @@
+{
+  "setName": "generalSet",
+  "queries": [
+    {
+      "name": "clip",
+      "description": "This pipeline embeds the provided text, embed it and retrieves based on temporal clip features",
+      "path": "./queryCatalog/generalSet/query-clip.json",
+      "schemas": ["sfa","ptt","arc"]
+    },
+    {
+      "name": "mlt",
+      "description": "This pipeline searches with mlt",
+      "path": "./queryCatalog/generalSet/query-mlt.json",
+      "schemas": ["ptt","arc"]
+    }
+  ]
+}
