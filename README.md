@@ -1,4 +1,4 @@
-# archipanion-engine-middlelayer
+# Archipanion-engine-middlelayer
 This project provides a middleware between the Archipanion frontend and the Vitrivr Engine backend.
 Its main purpose is to:
 
@@ -12,3 +12,9 @@ The following functionality is planned for future releases:
 5. Schema based routing to a Vitrivr Engine endpoint.
 
 The documentation can be found on the wiki page [Middleware Documenttation](https://github.com/Archipanion/archipanion-engine-middlelayer/wiki)
+
+# Citation
+We kindly ask you to refer to the following paper in publications mentioning or employing vitrivr-engine.
+
+Gasser, R., Arnold, R., Faber, F., Schuldt, H., Waltenspül, R., & Rossetto, L. (2024, January). A New Retrieval Engine for Vitrivr. In International Conference on Multimedia Modeling (pp. 324-331). Cham: Springer Nature Switzerland.
+[https://link.springer.com/chapter/10.1007/978-3-031-53302-0_28](https://link.springer.com/chapter/10.1007/978-3-031-53302-0_28)
