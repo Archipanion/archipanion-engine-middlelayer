@@ -8,9 +8,15 @@
       "schemas": ["sfa","ptt","arc"]
     },
     {
+      "name": "all",
+      "description": "This pipeline searches with ",
+      "path": "./queryCatalog/generalSet/query-all.json",
+      "schemas": ["ptt"]
+    },
+    {
       "name": "mlt",
       "description": "This pipeline searches with mlt",
-      "path": "./queryCatalog/generalSet/query-mlt.json",
+      "path": "./queryCatalog/generalSet/query-clip.json",
       "schemas": ["ptt","arc"]
     }
   ]

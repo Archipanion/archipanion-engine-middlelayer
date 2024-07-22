@@ -2,9 +2,9 @@ import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.archipanion.mw.server.model.config.query.dynamicDescription.*
 import org.archipanion.mw.sevice.model.context.QueryContext
-import org.vitrivr.engine.query.model.api.InformationNeedDescription
 import org.archipanion.mw.sevice.model.input.InputData
 import org.archipanion.mw.sevice.model.operator.*
+import org.vitrivr.engine.query.model.api.InformationNeedDescription
 
 
 class QueryCreator() {
@@ -79,9 +79,40 @@ class QueryCreator() {
         val operations: MutableMap<String, OperatorDescription> =
             createOperations(pipelineInputs, dynInd)
         val output: String = dynInd.output
-        val context: QueryContext = QueryContext(global = mapOf("limit" to "30"))
+        val context: QueryContext = createContext(operations, dynInd)
 
-        return InformationNeedDescription(pipelineInputs, operations, output, context)
+        return InformationNeedDescription(pipelineInputs, operations,context, output )
+    }
+
+    fun createContext(
+        operations: MutableMap<String, OperatorDescription>,
+        dynInd: DynamicInformationNeedDescription,
+    ): QueryContext
+    {
+        val local:  MutableMap<String, MutableMap<String, String>> = mutableMapOf()
+        for ((operationName, operationDescription) in operations) {
+
+            operationName.replace("[0-9]-[0-9]-".toRegex(),"%i-").let {
+                key ->
+                    if (dynInd.context.local.containsKey(key)) {
+                        local[operationName] = mutableMapOf()
+                        for ((property, value) in dynInd.context.local[key]!!) {
+                            local[operationName]?.set(property, value)
+                        }
+                    }
+            }
+
+        }
+        dynInd.context.local.forEach() {
+           if (!it.key.contains("%i")){
+               local[it.key] = mutableMapOf()
+               for ((property, value) in it.value) {
+                   local[it.key]?.set(property, value)
+               }
+           }
+        }
+        val qc = QueryContext(global = dynInd.context.global, local = local)
+        return qc
     }
 
 
@@ -112,7 +143,7 @@ class QueryCreator() {
                             when (operations[specificOperationName]!!.type) {
                                 OperatorType.AGGREGATOR ->
                                     (operations[specificOperationName] as AggregatorDescription).inputs.add(
-                                        dynOperationDescription.input.replace("%i", "$idx-${idy-1}")
+                                        dynOperationDescription.input.replace("%i", "$idx-${idy - 1}")
                                     )
 
                                 else -> {
@@ -124,7 +155,7 @@ class QueryCreator() {
                             operations.remove(specificOperationName)
                             operations[specificOperationName] = tmp
                         } else {
-                            operations[specificOperationName] = operatorCreator(dynOperationDescription, idx, idy-1)
+                            operations[specificOperationName] = operatorCreator(dynOperationDescription, idx, idy - 1)
                         }
                         idy++
                         break@nextOperation
@@ -199,17 +230,17 @@ class QueryCreator() {
         val input = dynOp.input.replace("%i", "$idx-$idy")
         when (dynOp.type) {
             OperationType.RETRIEVER -> {
-                return RetrieverDescription(input, dynOp.properties["field"]!!)
+                return RetrieverDescription(input, dynOp.field!!)
             }
 
             OperationType.TRANSFORMER -> {
-                return TransformerDescription(dynOp.name, input, dynOp.properties)
+                return TransformerDescription(dynOp.name!!, input)
             }
 
             OperationType.AGGREGATOR -> {
                 val inputs = mutableListOf<String>()
                 inputs.add(input)
-                return AggregatorDescription(dynOp.name, inputs, dynOp.properties)
+                return AggregatorDescription(dynOp.name!!, inputs)
             }
         }
     }

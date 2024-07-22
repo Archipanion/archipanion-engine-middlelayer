@@ -9,6 +9,6 @@ import org.archipanion.mw.sevice.model.operator.OperatorDescription
 data class InformationNeedDescription(
     val inputs: Map<String, InputData>,
     val operations: Map<String, OperatorDescription>,
+    val context: QueryContext,
     val output: String,
-    val context: QueryContext = QueryContext(emptyMap(), emptyMap())
 )

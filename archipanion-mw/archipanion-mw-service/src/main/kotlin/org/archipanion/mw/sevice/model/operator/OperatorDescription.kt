@@ -13,7 +13,7 @@ data class RetrieverDescription(
     /** The name of the input in the information need */
     val input: String,
     /** The name of the field in the schema */
-    val field: String
+    val field: String? = null
 ) : OperatorDescription() {
     override val type = OperatorType.RETRIEVER
 }
@@ -22,7 +22,6 @@ data class RetrieverDescription(
 data class TransformerDescription(
     val transformerName: String,
     val input: String,
-    val properties: Map<String, String> = emptyMap()
 ) : OperatorDescription() {
     override val type = OperatorType.TRANSFORMER
 }
@@ -31,7 +30,6 @@ data class TransformerDescription(
 data class AggregatorDescription(
     val aggregatorName: String,
     val inputs: MutableList<String>,
-    val properties: Map<String, String> = emptyMap()
 ) : OperatorDescription() {
     override val type = OperatorType.AGGREGATOR
 }

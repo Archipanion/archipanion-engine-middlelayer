@@ -8,5 +8,6 @@ data class DynamicInformationNeedDescription(
     val description: String,
     val inputs: Map<String, DynamicInput>,
     val operations: Map<String, DynamicOperation>,
+    val context: DynamicQueryContext,
     val output: String,
 )

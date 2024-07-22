@@ -1,7 +1,6 @@
 package org.archipanion.mw.sevice.controller
 
 
-import io.javalin.json.fromJsonString
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -21,7 +20,7 @@ class QueryService(val basePath: String = "http://localhost:7070") {
         )
 
         val request = Request.Builder()
-            .url("http://localhost:7070/api/MVK/query")
+            .url("$basePath/api/$schema/query")
             .post(body)
             .addHeader("Content-Type", "application/json")
             .build()

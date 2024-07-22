@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class DynamicOperation(
     val type: OperationType,
-    val name: String,
+    val name: String? = null,
     val input: String,
-    val properties: Map<String, String> = emptyMap()
+    val field: String? = null,
 )
