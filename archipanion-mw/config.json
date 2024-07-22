@@ -19,7 +19,7 @@
   },
   "engineEndpoints": [
     {
-      "ip": "localhost",
+      "ip": "10.34.64.84",
       "schema": "ptt",
       "port": 7070
     },

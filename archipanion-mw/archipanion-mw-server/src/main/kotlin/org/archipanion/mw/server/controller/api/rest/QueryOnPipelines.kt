@@ -78,7 +78,11 @@ fun findSegments(ctx: Context) {
         logger.trace { "Query loaded: ${ind.toString()}" }
 
         val payload = KotlinxJsonMapper.toJsonString(ind, InformationNeedDescription::class.java)
-        val response = QueryService().postQuery(schema, payload)
+        val engineIp = config.engineEndpoints.find { it.schema == schema }?.ip ?: throw ErrorStatusException(500, "Engine Ip not found")
+        val enginePort = config.engineEndpoints.find { it.schema == schema }?.port ?: throw ErrorStatusException(500, "Engine Port not found")
+        val basePath = "http://$engineIp:$enginePort"
+        logger.trace { "Sending query to engine $basePath" }
+        val response = QueryService(basePath).postQuery(schema, payload)
 
 
         if (response != null) {
